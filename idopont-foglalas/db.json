@@ -1,0 +1,25 @@
+{
+    "appointments": [
+        {
+            "id": 1,
+            "date": "2025-03-05",
+            "time": "08:00:00",
+            "name": "Rúgka Pál",
+            "email": "palika.rugka@mail.org"
+        },
+        {
+            "id": 2,
+            "date": "2025-03-05",
+            "time": "10:00:00",
+            "name": "Végh Béla",
+            "email": "belucika@freemail.com"
+        },
+        {
+            "id": 3,
+            "date": "2025-03-07",
+            "time": "15:00:00",
+            "name": "Negye Dóra",
+            "email": "dori86@gmail.com"
+        }
+    ]
+}
