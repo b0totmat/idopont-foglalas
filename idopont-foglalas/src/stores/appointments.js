@@ -8,7 +8,7 @@ export const useAppointmentStore = defineStore('appointment', () => {
 
   async function getAppointments() {
     try {
-      appointments.value = await AppointmentService.index()
+      appointments.value = (await AppointmentService.index()).data
     } catch(e) {
       console.log(e)
     }
