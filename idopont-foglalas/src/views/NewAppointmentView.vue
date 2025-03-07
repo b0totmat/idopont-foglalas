@@ -95,6 +95,8 @@ async function sendForm(e) {
       icon: true,
       rtl: false
     })
+
+    await appointmentStore.saveNewAppointment(newAppointment.value)
     router.push('/')
   } else {
     for(const e of errors) {
