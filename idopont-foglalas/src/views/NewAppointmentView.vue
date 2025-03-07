@@ -96,23 +96,23 @@ async function sendForm(e) {
       rtl: false
     })
     router.push('/')
-  }
-  
-  for(const e of errors) {
-    toast.error(e, {
-      position: "top-right",
-      timeout: 2970,
-      closeOnClick: true,
-      pauseOnFocusLoss: true,
-      pauseOnHover: false,
-      draggable: true,
-      draggablePercent: 0.6,
-      showCloseButtonOnHover: false,
-      hideProgressBar: true,
-      closeButton: "button",
-      icon: true,
-      rtl: false
-    })
+  } else {
+    for(const e of errors) {
+      toast.error(e, {
+        position: "top-right",
+        timeout: 2970,
+        closeOnClick: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: false,
+        draggable: true,
+        draggablePercent: 0.6,
+        showCloseButtonOnHover: false,
+        hideProgressBar: true,
+        closeButton: "button",
+        icon: true,
+        rtl: false
+      })
+    }
   }
 }
 </script>
