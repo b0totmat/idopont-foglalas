@@ -16,7 +16,7 @@
             <option v-for="t in availableTimes" :value="t">{{ t }}</option>
           </select>
         </div>
-        <button class="btn btn-primary">Foglalás</button>
+        <button class="btn btn-primary" @click="sendForm">Foglalás</button>
       </form>
     </div>
   </div>
@@ -45,10 +45,32 @@ async function getAvailableTimes() {
 
     if(a.date === newAppointment.value.date) {
       const timeToRemoveIdx = availableTimes.value.findIndex(t => t === a.time && a.date == newAppointment.value.date)
-      
+
       if(timeToRemoveIdx >= 0)
         availableTimes.value.splice(timeToRemoveIdx, 1)
     }
+  }
+}
+
+async function sendForm() {
+  let errors = []
+  let isValid = true
+
+  if(newAppointment.value.email === '') {
+    errors.push('Az e-mail cím mező kitöltése kötelező!')
+    isValid = false
+  }
+  if(newAppointment.value.name === '') {
+    errors.push('A név mező kitöltése kötelező!')
+    isValid = false
+  }
+  if(newAppointment.value.date === '') {
+    errors.push('Adjon meg érvényes dátumot!')
+    isValid = false
+  }
+  if(newAppointment.value.time === '') {
+    errors.push('Adjon meg időpontot!')
+    isValid = false
   }
 }
 </script>
