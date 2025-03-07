@@ -3,8 +3,8 @@
     <div class="col">
       <form>
         <div class="mb-3 form-floating">
-          <input type="email" class="form-control" id="email" placeholder="E-mail cím" v-model="newAppointment.email">
-          <label for="email" class="form-label">E-mail cím</label>
+          <input type="tel" class="form-control" id="tel" placeholder="Telefonszám" v-model="newAppointment.mobile">
+          <label for="tel" class="form-label">Telefonszám</label>
         </div>
         <div class="mb-3 form-floating">
           <input type="text" class="form-control" id="name" placeholder="Név" v-model="newAppointment.name">
@@ -32,7 +32,7 @@ const router = useRouter()
 
 const appointmentStore = useAppointmentStore()
 const newAppointment = ref({
-  email: '',
+  mobile: '',
   name: '',
   date: '',
   time: ''
@@ -63,8 +63,8 @@ async function sendForm(e) {
   let errors = []
   let isValid = true
 
-  if(newAppointment.value.email === '') {
-    errors.push('Az e-mail cím mező kitöltése kötelező!')
+  if(newAppointment.value.mobile === '') {
+    errors.push('A telefonszám cím mező kitöltése kötelező!')
     isValid = false
   }
   if(newAppointment.value.name === '') {
