@@ -8,7 +8,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <RouterLink class="nav-link active" aria-current="page" to="/">Kezdőlap</RouterLink>
+            <RouterLink class="nav-link" aria-current="page" to="/">Kezdőlap</RouterLink>
           </li>
           <li class="nav-item">
             <RouterLink class="nav-link" to="/new-appointment">Időpont-foglalás</RouterLink>
