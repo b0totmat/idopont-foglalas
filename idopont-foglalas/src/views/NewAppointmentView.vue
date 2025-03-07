@@ -24,6 +24,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAppointmentStore } from '@/stores/appointments.js'
+import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+const router = useRouter()
 
 const appointmentStore = useAppointmentStore()
 const newAppointment = ref({
@@ -52,7 +57,9 @@ async function getAvailableTimes() {
   }
 }
 
-async function sendForm() {
+async function sendForm(e) {
+  e.preventDefault()
+
   let errors = []
   let isValid = true
 
@@ -71,6 +78,41 @@ async function sendForm() {
   if(newAppointment.value.time === '') {
     errors.push('Adjon meg időpontot!')
     isValid = false
+  }
+
+  if(errors.length === 0 && isValid) {
+    toast.info('Sikeresen lefoglalta az időpontot!', {
+      position: "top-right",
+      timeout: 2970,
+      closeOnClick: true,
+      pauseOnFocusLoss: true,
+      pauseOnHover: false,
+      draggable: true,
+      draggablePercent: 0.6,
+      showCloseButtonOnHover: false,
+      hideProgressBar: true,
+      closeButton: "button",
+      icon: true,
+      rtl: false
+    })
+    router.push('/')
+  }
+  
+  for(const e of errors) {
+    toast.error(e, {
+      position: "top-right",
+      timeout: 2970,
+      closeOnClick: true,
+      pauseOnFocusLoss: true,
+      pauseOnHover: false,
+      draggable: true,
+      draggablePercent: 0.6,
+      showCloseButtonOnHover: false,
+      hideProgressBar: true,
+      closeButton: "button",
+      icon: true,
+      rtl: false
+    })
   }
 }
 </script>
