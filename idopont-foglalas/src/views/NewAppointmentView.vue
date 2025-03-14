@@ -1,23 +1,21 @@
 <template>
   <div class="row">
     <div class="col">
-      <form>
-        <div class="mb-3 form-floating">
-          <input type="tel" class="form-control" id="tel" placeholder="Telefonszám" v-model="newAppointment.mobile">
-          <label for="tel" class="form-label">Telefonszám</label>
-        </div>
-        <div class="mb-3 form-floating">
-          <input type="text" class="form-control" id="name" placeholder="Név" v-model="newAppointment.name">
-          <label for="name" class="form-label">Név</label>
-        </div>
-        <div class="mb-3">
-          <input type="date" class="form-control" id="date" v-on:change="getAvailableTimes" v-model="newAppointment.date">
-          <select class="form-select mt-3" v-model="newAppointment.time">
-            <option v-for="t in availableTimes" :value="t">{{ t }}</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" @click="sendForm">Foglalás</button>
-      </form>
+      <div class="mb-3 form-floating">
+        <input type="tel" class="form-control" id="tel" placeholder="Telefonszám" v-model="newAppointment.mobile">
+        <label for="tel" class="form-label">Telefonszám</label>
+      </div>
+      <div class="mb-3 form-floating">
+        <input type="text" class="form-control" id="name" placeholder="Név" v-model="newAppointment.name">
+        <label for="name" class="form-label">Név</label>
+      </div>
+      <div class="mb-3">
+        <input type="date" class="form-control" id="date" v-on:change="getAvailableTimes" v-model="newAppointment.date">
+        <select class="form-select mt-3" v-model="newAppointment.time">
+          <option v-for="t in availableTimes" :value="t">{{ t }}</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" @click="sendForm()">Foglalás</button>
     </div>
   </div>
 </template>
@@ -25,9 +23,7 @@
 import { ref, onMounted } from 'vue'
 import { useAppointmentStore } from '@/stores/appointments.js'
 import { useRouter } from 'vue-router'
-import { useToast } from 'vue-toastification'
 
-const toast = useToast()
 const router = useRouter()
 
 const appointmentStore = useAppointmentStore()
@@ -57,64 +53,8 @@ async function getAvailableTimes() {
   }
 }
 
-async function sendForm(e) {
-  e.preventDefault()
-
-  let errors = []
-  let isValid = true
-
-  if(newAppointment.value.mobile === '') {
-    errors.push('A telefonszám cím mező kitöltése kötelező!')
-    isValid = false
-  }
-  if(newAppointment.value.name === '') {
-    errors.push('A név mező kitöltése kötelező!')
-    isValid = false
-  }
-  if(newAppointment.value.date === '') {
-    errors.push('Adjon meg érvényes dátumot!')
-    isValid = false
-  }
-  if(newAppointment.value.time === '') {
-    errors.push('Adjon meg időpontot!')
-    isValid = false
-  }
-
-  if(errors.length === 0 && isValid) {
-    toast.info('Sikeresen lefoglalta az időpontot!', {
-      position: "top-right",
-      timeout: 2970,
-      closeOnClick: true,
-      pauseOnFocusLoss: true,
-      pauseOnHover: false,
-      draggable: true,
-      draggablePercent: 0.6,
-      showCloseButtonOnHover: false,
-      hideProgressBar: true,
-      closeButton: "button",
-      icon: true,
-      rtl: false
-    })
-
-    await appointmentStore.saveNewAppointment(newAppointment.value)
-    router.push('/')
-  } else {
-    for(const e of errors) {
-      toast.error(e, {
-        position: "top-right",
-        timeout: 2970,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: false,
-        draggable: true,
-        draggablePercent: 0.6,
-        showCloseButtonOnHover: false,
-        hideProgressBar: true,
-        closeButton: "button",
-        icon: true,
-        rtl: false
-      })
-    }
-  }
+async function sendForm() {
+  await appointmentStore.saveNewAppointment(newAppointment.value)
+  router.push('/')
 }
 </script>
